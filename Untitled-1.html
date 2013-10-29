@@ -3,7 +3,8 @@
 <body bgcolor="#12a6eb">
 <style type="text/css">
 div#container{width:500px}
-div#header {color:#FFFFFF; margin-top:150px; display:none;}
+div#header {
+	color:#FFFFFF; margin-top:180px; display:none; }
 div#menu {background-color:#ffff99; height:200px; width:100px; float:left;}
 div#content_header2 {
 	 display:none;
@@ -13,19 +14,19 @@ div#content_header2 {
 div#content_tuijian {
 	display:none;
 	 color:#9fbacd;font-family:华文细黑,"Microsoft JhengHei",STHeiti,MingLiu; 
-	 margin-top:50px; 
+	 margin-top:37px; 
 	 font-size:1.3em;  }
-	 div#content_chuxing {
+div#content_chuxing {
 	display:none;
 	 color:#9fbacd;font-family:华文细黑,"Microsoft JhengHei",STHeiti,MingLiu; 
-	 margin-top:50px; 
+	 margin-top:20px; 
 	 font-size:1.3em;  }
 div#footer {background-color:#99bbbb; clear:both; text-align:center;}
 div#circle {background-image:url(pics/button_yellow.png); width:200px; height:40px; background-position:center; color:#000;  }
 div#type {background-image:url(pics/button_green.png); width:200px; height:40px; background-position:center; color:#000;  }
-div#button_go { display:none; margin-top:40px; }
+div#button_go { display:none; margin-top:20px; }
 div#cloud_top {
-	 display:none;
+display:none;
 position:absolute;
 right:0px;
 top:0px
@@ -46,14 +47,23 @@ bottom:0px
 $(document).ready(function(){
 	
     $("#cloud_top").fadeIn(1000);
+	
 	$("#cloud_bottom").fadeIn(1000);
+	
+	
     $("#header").fadeIn(500);
-    $("#button_go").fadeIn(3000);
-	$("div#content_header2").fadeIn(800);
-	$("div#circle").fadeIn(3000);
-	$("div#type").fadeIn(3000);
-	$("div#content_tuijian").fadeIn(3000);
-	$("div#content_chuxing").fadeIn(3000);
+	$("div#content_header2").fadeIn(800,function()
+	{
+		$("div#circle").fadeIn(3000);
+		$("div#type").fadeIn(3000);
+		$("div#content_tuijian").fadeIn(3000);
+		$("div#content_chuxing").fadeIn(3000);
+		$("#button_go").fadeIn(3000);
+		$("#cloud_bottom").animate({left:'200px'});
+		$("#cloud_top").animate({right:'200px'});
+	}
+	);
+	
 });
 </script>
 <blockquote>
