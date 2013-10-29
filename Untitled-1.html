@@ -19,11 +19,11 @@ div#content_tuijian {
 div#content_chuxing {
 	display:none;
 	 color:#9fbacd;font-family:华文细黑,"Microsoft JhengHei",STHeiti,MingLiu; 
-	 margin-top:20px; 
+	 margin-top:30px; 
 	 font-size:1.3em;  }
 div#footer {background-color:#99bbbb; clear:both; text-align:center;}
-div#circle {background-image:url(pics/button_yellow.png); width:200px; height:40px; background-position:center; color:#000;  }
-div#type {background-image:url(pics/button_green.png); width:200px; height:40px; background-position:center; color:#000;  }
+div#circle {background-image:url(pics/button_yellow.png); width:200px; height:40px; background-position:center; color:#000; margin-top:10px;   }
+div#type {background-image:url(pics/button_green.png); width:200px; height:40px; background-position:center; color:#000; margin-top:10px;  }
 div#button_go { display:none; margin-top:20px; }
 div#cloud_top {
 display:none;
@@ -42,10 +42,33 @@ bottom:0px
 </style>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <script src="jquery.js"></script>
+<script src="layer/layer.min.js"></script>
 <script>
+
 $(document).ready(function(){
+		$("div#button_go").click(function ()
+	{
+		$.layer({
+    type : 2,
+    title : 'Result',
+    iframe : {src : 'result.html'},
+    area : ['750px' , '466px'],
+    offset : ['100px',''],
+	 success : function(){ //层加载成功后进行的回调
+	 	//console.log(layer.getChildFrame('#name').text());
+        $.getJSON("http://115.28.17.121:8080/",{command:"getcirclelist",city:"西安市"},function(data,status)
+		{
+			
+			//alert(data.item1 + " " + status);
+		});
+    }
 	
+});
+		
+	}
+	);
     $("#cloud_top").fadeIn(1000);
 	
 	$("#cloud_bottom").fadeIn(1000);
@@ -63,9 +86,11 @@ $(document).ready(function(){
 		$("#cloud_top").animate({right:'200px'});
 	}
 	);
+
 	
 });
 </script>
+
 <blockquote>
   <p>
     <title>干嘛去</title>
