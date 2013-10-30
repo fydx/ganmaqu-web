@@ -48,13 +48,22 @@ bottom:0px
 <script>
 
 $(document).ready(function(){
+		var types =["亲子出行","朋友出行","情侣出行"];
+		var count =0;
+		$("div#type").click(function ()
+		{
+			$(".types").text(types[count%3]);
+			count++;
+		});
+		
 		$("div#button_go").click(function ()
 	{
 		$.layer({
     type : 2,
-    title : 'Result',
+    title : '推荐路线',
+	shadeClose : true,
     iframe : {src : 'result.html'},
-    area : ['750px' , '466px'],
+    area : ['750px' , '500px'],
     offset : ['100px',''],
 	 success : function(){ //层加载成功后进行的回调
 	 	//console.log(layer.getChildFrame('#name').text());
