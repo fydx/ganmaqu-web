@@ -5,7 +5,19 @@
 <title>无标题文档</title>
 <script src="jquery.js"></script>
 <script>
-console.log(window.parent.document);
+ var circle_selected;
+ var types_selected;
+ circle_selected = $(".circles",window.parent.document).html();
+ types_selected = $(".types",window.parent.document).html();
+ console.log(circle_selected);
+ console.log(types_selected);
+  $.get("http://115.28.17.121:8080/",{command:"full",city:"西安市",id:"root",circleName:circle_selected, type:types_selected},function(data,status)
+		{
+			
+			console.log(data);
+			$("#name").text(data);
+			//alert(data.item1 + " " + status);
+		});
 </script>
 <style type="text/css">
 <!--
@@ -82,11 +94,11 @@ a:hover, a:active, a:focus { /* 此组选择器将为键盘导航者提供与鼠
 
 <div class="container" >
   <div class="content">
-    <h1 id= "name">说明</h1>
-    <p>请注意，这些布局的 CSS 带有大量注释。如果您的大部分工作都在设计视图中进行，请快速浏览一下代码，获取有关如何使用固定布局 CSS 的提示。您可以先删除这些注释，然后启动您的站点。要了解有关这些 CSS 布局中使用的方法的更多信息，请阅读 Adobe 开发人员中心上的以下文章：<a href=http://www.adobe.com/go/adc_css_layouts">http://www.adobe.com/go/adc_css_layouts</a>。</p>
+    <h1 >说明</h1>
+    <p id= "name">请注意，这些布局的 CSS 带有大量注释。如果您的大部分工作都在设计视图中进行，请快速浏览一下代码，获取有关如何使用固定布局 CSS 的提示。您可以先删除这些注释，然后启动您的站点。要了解有关这些 CSS 布局中使用的方法的更多信息，请阅读 Adobe 开发人员中心上的以下文章：<a href=http://www.adobe.com/go/adc_css_layouts">http://www.adobe.com/go/adc_css_layouts</a>。</p>
     <h2>布局</h2>
     <p>由于这是一列布局，因此 .content 不是浮动的。如果在 .container 内添加 .footer，它将紧跟在 .content div 之后。 </p>
-    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+  
     <!-- end .content --></div>
   <!-- end .container --></div>
 </body>
