@@ -2,6 +2,12 @@
 <html>
 <body bgcolor="#12a6eb">
 <style type="text/css">
+div#city_container
+{    display:none;
+	 font-weight:bold;
+	 color:#9fbacd;
+	 font-family:华文细黑,"Microsoft JhengHei",STHeiti,MingLiu; 
+}
 div#container{width:500px}
 div#header {
 	color:#FFFFFF; margin-top:180px; display:none; }
@@ -50,6 +56,23 @@ bottom:0px
 $(document).ready(function(){
 		var types =["亲子出行","朋友出行","情侣出行"];
 		var count =0;
+		$("#city_container").click(function()
+		{
+				$.layer({
+    type : 2,
+    title : '城市选择',
+	shadeClose : true,
+    iframe : {src : 'cities.html'},
+    area : ['750px' , '300px'],
+    offset : ['100px',''],
+	 success : function(){ //层加载成功后进行的回调
+	 	//console.log(layer.getChildFrame('#name').text());
+       
+    }
+	
+});
+		}
+		);
 		$(".circles").click(function()
 		{
 			$.layer({
@@ -57,7 +80,7 @@ $(document).ready(function(){
     title : '商圈选择',
 	shadeClose : true,
     iframe : {src : 'circles.html'},
-    area : ['750px' , '500px'],
+    area : ['600px' , '200px'],
     offset : ['100px','']
 	
     
@@ -106,6 +129,7 @@ $(document).ready(function(){
 		$("div#content_tuijian").fadeIn(3000);
 		$("div#content_chuxing").fadeIn(3000);
 		$("#button_go").fadeIn(3000);
+		$("div#city_container").fadeIn(3000);
 		$("#cloud_bottom").animate({left:'200px'});
 		$("#cloud_top").animate({right:'200px'});
 	}
@@ -122,7 +146,12 @@ $(document).ready(function(){
     </p>
   </blockquote>
 </div>
-
+<div align="left" id = "city_container">
+当前城市: 
+  <p id = "city">
+  西安
+  </p>
+</div>
 <div align="center" id = "header">
   <blockquote>
     <p><img src="pics/ganmaqu_header.png" />
