@@ -1,34 +1,16 @@
 <!doctype html>
-<html>
 <head>
-<meta charset="utf-8">
-<title>无标题文档</title>
-<script src="jquery.js"></script>
-<script>
- var circle_selected;
- var types_selected;
- circle_selected = $(".circles",window.parent.document).html();
- types_selected = $(".types",window.parent.document).html();
- console.log(circle_selected);
- console.log(types_selected);
-  $.get("http://115.28.17.121:8080/",{command:"full",city:"西安市",id:"root",circleName:circle_selected, type:types_selected},function(data,status)
-		{
-			var json = data ;
-			console.log(json);
-			$("#name").text(data);
-			//遍历json数组
-			var str= " " ;
- var strJson = eval(data);
-for(var i=0; i<strJson.length; i++)
-{
-  str+=("<br>" + strJson[i].time +" "+ strJson[i].shopName+"</br>");
-}
-		$("#name").html(str);
-			//alert(data.item1 + " " + status);
-		});
-</script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>circles</title>
 <style type="text/css">
 <!--
+.circle{
+float:left;
+background-color:#FFFFFF;
+height:347px;
+width:200;
+margin-right:30px;
+}
 body {
 	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
 	background-color: #FFFFFF;
@@ -96,17 +78,51 @@ a:hover, a:active, a:focus { /* 此组选择器将为键盘导航者提供与鼠
 	line-height: 0px;
 }
 -->
-</style></head>
+</style>
+<script src="jquery.js"></script>
+<script src="layer/layer.min.js"></script>
+<script>
+var circles;  
+ 
+ $(document).ready(function(){
+     $.get("http://115.28.17.121:8080/",{command:"getcirclelist",city:"西安市"},function(data,status)
+	 {
+		 $("#loading").text("");
+		 console.log(data);
+		  var json=eval('('+data+')');  
+		 //var json = eval(data);
+		// console.log(json.item1);
+		    for(var key in json){  
+				var txt=  $("<div id =" + key+" " +"class='circle'></div>").text(json[key]);
+                $("body").append(txt);
+				 
+            }
+			  $(".circle").click(function()
+ {
+	
+	 var circle_selected = $(".circles",window.parent.document).html();
+	 console.log(circle_selected);
+	 var circle = $(this).text();
+	  console.log(circle);
+	 //console.log($("p.clrcles",window.parent.document).text());
+	 $(".circles",window.parent.document).text(circle);
+	 
+	 var index = parent.layer.getFrameIndex(window.name);
+	 parent.layer.close(index);
+ }
+ );
+			
+	 }
+	 
+	 );
+	
+});
+</script>
+</head>
 
 <body>
-
-<div class="container" >
-  <div class="content">
-    <h1 >推荐地点</h1>
-    <p id= "name">请稍后..
-    </p>
-  
-    <!-- end .content --></div>
-  <!-- end .container --></div>
+<p id = "loading">
+读取商圈中..
+</p>
 </body>
 </html>

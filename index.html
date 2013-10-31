@@ -50,6 +50,21 @@ bottom:0px
 $(document).ready(function(){
 		var types =["亲子出行","朋友出行","情侣出行"];
 		var count =0;
+		$(".circles").click(function()
+		{
+			$.layer({
+    type : 2,
+    title : '商圈选择',
+	shadeClose : true,
+    iframe : {src : 'circles.html'},
+    area : ['750px' , '500px'],
+    offset : ['100px','']
+	
+    
+	
+});
+		}
+	);
 		$("div#type").click(function ()
 		{
 			$(".types").text(types[count%3]);
@@ -99,14 +114,8 @@ $(document).ready(function(){
 	
 });
 </script>
-
-<blockquote>
-  <p>
     <title>干嘛去</title>
-    </head>
-    
-  </p>
-</blockquote>
+   </head>  
 <div align="right" id="cloud_top">
   <blockquote>
     <p><img src="pics/bg_cloudfull.png" />
