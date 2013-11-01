@@ -84,8 +84,9 @@ a:hover, a:active, a:focus { /* 此组选择器将为键盘导航者提供与鼠
 <script src="layer/layer.min.js"></script>
 <script>
 var circles;  
- 
+
  $(document).ready(function(){
+	
      $.get("http://115.28.17.121:8080/",{command:"getavailablecity"},function(data,status)
 	 {
 		 $("#loading").text("");
@@ -124,7 +125,7 @@ var circles;
 <div class="container">
   <div class="content">
     <p id = "loading">
-读取商圈中..
+读取中..
 </p>
     <!-- end .content --></div>
   <!-- end .container --></div>

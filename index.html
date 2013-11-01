@@ -52,8 +52,41 @@ bottom:0px
 <script src="jquery.js"></script>
 <script src="layer/layer.min.js"></script>
 <script>
-
+function getLocation()
+  {
+  if (navigator.geolocation)
+    {
+    navigator.geolocation.getCurrentPosition(getCity);
+    }
+  else{
+	  console.log("Geolocation is not supported by this browser.");}
+  }
+  function showPosition(position)
+  {
+	  console.log("123");
+ console.log(position.coords.latitude + 
+  "   " + position.coords.longitude	);
+  }
+  function getCity(position)
+  {
+	console.log(position.coords.latitude + 
+  "   " + position.coords.longitude	);
+  $.getJSON("http://api.map.baidu.com/geocoder?output=json&location=" +position.coords.latitude +"," +  position.coords.longitude +"&key=APP_KEY",function(data,status)
+		{
+			console.log(data.result.addressComponent.city);
+			//jquery解析map数据
+       	// $.each(data.result.addressComponent,function(key,value){
+       //     console.log(key + "  " + value);
+       		$("p#city").text(data.result.addressComponent.city);
+			
+		}
+		);
+	
+  }
+  
 $(document).ready(function(){
+		getLocation();
+		
 		var types =["亲子出行","朋友出行","情侣出行"];
 		var count =0;
 		$("#city_container").click(function()
@@ -105,11 +138,7 @@ $(document).ready(function(){
     offset : ['100px',''],
 	 success : function(){ //层加载成功后进行的回调
 	 	//console.log(layer.getChildFrame('#name').text());
-        $.getJSON("http://115.28.17.121:8080/",{command:"getcirclelist",city:"西安市"},function(data,status)
-		{
-			
-			//alert(data.item1 + " " + status);
-		});
+       
     }
 	
 });
@@ -149,7 +178,7 @@ $(document).ready(function(){
 <div align="left" id = "city_container">
 当前城市: 
   <p id = "city">
-  西安
+  西安市
   </p>
 </div>
 <div align="center" id = "header">
