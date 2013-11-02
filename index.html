@@ -47,11 +47,13 @@ bottom:0px
 
 </style>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html charset=utf-8";  />
 
 <script src="jquery.js"></script>
 <script src="layer/layer.min.js"></script>
 <script>
+var lat;
+var lng;
 function getLocation()
   {
   if (navigator.geolocation)
@@ -67,6 +69,7 @@ function getLocation()
  console.log(position.coords.latitude + 
   "   " + position.coords.longitude	);
   }
+  
   function getCity(position)
   {
 	var lat = position.coords.latitude;
@@ -84,7 +87,33 @@ function getLocation()
 			setCircle(city,lat,lng);
 		}
 		);
+	    
+  }
+   function getCityAjax(position)
+  {
+	lat = position.coords.latitude;
+	lng = position.coords.longitude;
+	console.log(position.coords.latitude + 
+  "   " + position.coords.longitude	);
+ 	$.ajax({
+
+    url: "http://api.map.baidu.com/geocoder?output=json&location=" +position.coords.latitude +"," +  position.coords.longitude +"&key=APP_KEY",
+   // data: myData,
+    type: 'GET',
+    crossDomain: true,
+    dataType: 'jsonp',
 	
+    success: function(data) {
+		console.log("success");
+		var json=eval('('+data+')');  
+		 alert(json.status); 
+		 },
+   error:function(XMLHttpRequest,textStatus,errorThrown){    
+       console.log("jsonp.error:"+textStatus);    
+   }    
+    
+});
+	    
   }
   function setCircle(city,lat,lng)
   {
@@ -95,25 +124,33 @@ function getLocation()
 	  }
 	  );
   }
-  
+
+
 $(document).ready(function(){
-		getLocation();
+	//	getLocation();
 		
 		var types =["亲子出行","朋友出行","情侣出行"];
-		var count =0;
+		var count =2;
 		$("#city_container").click(function()
 		{
 				$.layer({
-    type : 2,
+    type : 0,
     title : '城市选择',
 	shadeClose : true,
     iframe : {src : 'cities.html'},
     area : ['750px' , '300px'],
     offset : ['100px',''],
-	 success : function(){ //层加载成功后进行的回调
+	success : function(){ //层加载成功后进行的回调
 	 	//console.log(layer.getChildFrame('#name').text());
        
-    }
+    },
+	close : function(index)
+	{
+		
+		var mycity =  $("p#city").text();
+		setCircle(mycity,lat,lng);
+	}
+	
 	
 });
 		}
