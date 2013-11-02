@@ -85,7 +85,9 @@ a:hover, a:active, a:focus { /* 此组选择器将为键盘导航者提供与鼠
 var circles;  
  
  $(document).ready(function(){
-     $.get("http://115.28.17.121:8080/",{command:"getcirclelist",city:"西安市"},function(data,status)
+	  var city = $("p#city",window.parent.document).text();
+	  console.log(city);
+     $.get("http://115.28.17.121:8080/",{command:"getcirclelist",city:city},function(data,status)
 	 {
 		 $("#loading").text("");
 		 console.log(data);

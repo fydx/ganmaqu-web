@@ -69,6 +69,8 @@ function getLocation()
   }
   function getCity(position)
   {
+	var lat = position.coords.latitude;
+	var lng = position.coords.longitude;
 	console.log(position.coords.latitude + 
   "   " + position.coords.longitude	);
   $.getJSON("http://api.map.baidu.com/geocoder?output=json&location=" +position.coords.latitude +"," +  position.coords.longitude +"&key=APP_KEY",function(data,status)
@@ -78,10 +80,20 @@ function getLocation()
        	// $.each(data.result.addressComponent,function(key,value){
        //     console.log(key + "  " + value);
        		$("p#city").text(data.result.addressComponent.city);
-			
+			var city = data.result.addressComponent.city;
+			setCircle(city,lat,lng);
 		}
 		);
 	
+  }
+  function setCircle(city,lat,lng)
+  {
+	  $.get("http://115.28.17.121:8080/",{command:"getshopcircle",city:city,pos_x:lng,pos_y:lat},function(data,statuas)
+	  {
+	  console.log(data)
+	  $("p.circles").text(data);
+	  }
+	  );
   }
   
 $(document).ready(function(){
@@ -204,7 +216,7 @@ $(document).ready(function(){
 </blockquote>
 <div id="circle">
   <blockquote>
-    <p class="circles">大雁塔</p>
+    <p class="circles">正在获取..</p>
   </blockquote>
 </div>
 </div>
